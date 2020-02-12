@@ -1,38 +1,65 @@
-.App {
-  text-align: center;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  background-color: var(--background);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button,
+input {
+  background-color: transparent;
+  font-family: inherit;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Variables */
+
+::selection {
+  background: transparent;
 }
 
-.App-link {
-  color: #61dafb;
-}
+:root {
+  /* General */
+  --em: 8px;
+  --radius: 2px;
+  --transition: all 140ms ease-in-out;
+  --border: 2px;
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  /* Color */
+  --background: #f5f4f9;
+  --white: #fff;
+  --grey-light-3: #fdfdfd;
+  --grey-light-2: #f6f6f6;
+  --grey-light-1: #e4e4e4;
+  --grey: #9f9f9f;
+  --grey-dark-1: #777777;
+  --grey-dark-2: #454545;
+  --grey-dark-3: #000000;
+
+  --primary-light-2: #faf8ff;
+  --primary-light-1: #dac8ff;
+  --primary: #9966ff;
+  --primary-dark-1: #8155da;
+  --primary-dark-2: #3600a1;
+
+  /* Fonts */
+  --text: calc(var(--em) * 1.3);
+  --text-tiny: calc(var(--em) * 0.9);
+  --text-small: calc(var(--em) * 1);
+  --text-large: calc(var(--text) * 1.1);
+  --text-big: calc(var(--text) * 1.6);
+  --text-light: 300;
+  --text-regular: 400;
+  --text-medium: 500;
+  --text-semi-bold: 600;
+  --text-heavy: 700;
 }
