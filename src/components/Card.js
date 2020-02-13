@@ -36,7 +36,7 @@ export function Card({ color, content, revealed, updating }) {
       component={Tile}
       xs={3}
       align={"center"}
-      color={( reveal && !updating ) ? color : "#FFF"}
+      color={reveal && !updating ? color : "#FFF"}
       onClick={() => setReveal(true)}
     >
       <Clue revealed={reveal} color={color}>

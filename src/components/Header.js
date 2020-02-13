@@ -4,25 +4,19 @@ import styled from "styled-components";
 import { isMobile } from "utils/isMobile";
 
 const Menu = styled.div`
-  padding: calc(var(--em) * 2);
-  margin-bottom: var(--em);
-`;
-
-const Title = styled.div`
-  font-weight: var(--text-heavy);
-  color: var(--primary);
-  font-size: var(--text-big);
+  padding: calc(var(--em) * 2) var(--em);
 `;
 
 const Label = styled.span`
   color: var(--primary);
   font-weight: var(--text-heavy);
+  margin: 0 var(--em);
 `;
 
 const FirstTeam = styled.span`
   color: ${props => AccentMap[props.color]};
   background-color: ${props => props.color};
-  font-size: var(--text-large);
+  font-size: var(--text);
   font-weight: var(--text-medium);
   padding: calc(var(--em) / 2) var(--em);
   border-radius: var(--radius);
@@ -35,10 +29,10 @@ const Seed = styled.input`
   color: var(--grey-dark-3);
   font-weight: var(--text-semi-bold);
   background-color: var(--grey-light-3);
-  font-size: var(--text-large) px;
+  font-size: var(--text-large);
   border-radius: var(--radius);
   text-align: center;
-  margin: 0 var(--em);
+  margin: 0;
   &::placeholder {
     color: var(--grey-dark-1);
   }
@@ -53,9 +47,10 @@ const Button = styled.button`
   padding: var(--em) calc(var(--em) * 2);
   border-radius: var(--radius);
   background-color: var(--primary);
-  font-size: var(--text-large) px;
+  font-size: var(--text-large);
   font-weight: var(--text-semi-bold);
   color: var(--primary-light-2);
+  margin: 0 var(--em);
   &:hover {
     cursor: pointer;
   }
@@ -92,9 +87,9 @@ export const Header = ({ seed, changeSeed, startingTeam }) => {
 
   return (
     <Row component={Menu} align={"center"} nogutter>
-      <Col align={"start"}>
+      <Col>
         <form>
-          <Label>Board ID</Label>
+          <Label>Board</Label>
           <Seed
             placeholder={seed}
             maxLength={4}
@@ -115,8 +110,8 @@ export const Header = ({ seed, changeSeed, startingTeam }) => {
         </Col>
       )}
       {isMobile && (
-        <Col xs={"content"} align={"end"}>
-          <FirstTeam color={ColorMap[startingTeam]}>Starting Team</FirstTeam>
+        <Col xs={"content"} align={"center"}>
+          <FirstTeam color={ColorMap[startingTeam]}>Team 1</FirstTeam>
         </Col>
       )}
     </Row>
