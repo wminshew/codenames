@@ -23,10 +23,6 @@ input {
 
 /* Variables */
 
-::selection {
-  background: transparent;
-}
-
 :root {
   /* General */
   --em: 8px;
@@ -35,7 +31,7 @@ input {
   --border: 2px;
 
   /* Color */
-  --background: #f5f4f9;
+  --background: #eaf3f9;
   --white: #fff;
   --grey-light-3: #fdfdfd;
   --grey-light-2: #f6f6f6;
@@ -43,25 +39,29 @@ input {
   --grey: #9f9f9f;
   --grey-dark-1: #777777;
   --grey-dark-2: #454545;
-  --grey-dark-3: #000000;
+  --grey-dark-3: #222;
 
   --primary-light-2: #faf8ff;
   --primary-light-1: #dac8ff;
-  --primary: #9966ff;
+  --primary: #657b87;
   --primary-dark-1: #8155da;
   --primary-dark-2: #3600a1;
 
   --team-1: #fe4164;
-  --team-2: #66ff99;
-  --neutral: #c3d0d0;
-  --death: #000;
+  --team-1-accent: rgba(0, 0, 0, 0.48);
+  --team-2: #5398ff;
+  --team-2-accent: rgba(0, 0, 0, 0.48);
+  --neutral: #dee3e3;
+  --neutral-accent: rgba(0, 0, 0, 0.48);
+  --death: #222;
+  --death-accent: #ffff00;
 
   /* Fonts */
   --text: calc(var(--em) * 1.3);
   --text-tiny: calc(var(--em) * 0.9);
   --text-small: calc(var(--em) * 1);
-  --text-large: calc(var(--text) * 1.1);
-  --text-big: calc(var(--text) * 1.6);
+  --text-large: calc(var(--text) * 1.4);
+  --text-big: calc(var(--text) * 2);
   --text-light: 300;
   --text-regular: 400;
   --text-medium: 500;
