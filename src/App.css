@@ -21,12 +21,17 @@ input {
   font-family: inherit;
 }
 
+form {
+  padding: none;
+  margin: none;
+}
+
 /* Variables */
 
 :root {
   /* General */
   --em: 8px;
-  --radius: 4px;
+  --radius: 3px;
   --transition: all 140ms ease-in-out;
   --border: 2px;
 
