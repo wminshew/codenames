@@ -16,14 +16,14 @@ const Label = styled.span`
 const FirstTeam = styled.span`
   color: ${props => AccentMap[props.color]};
   background-color: ${props => props.color};
-  font-size: var(--text);
+  font-size: var(--text-small);
   font-weight: var(--text-medium);
   padding: calc(var(--em) / 2) var(--em);
   border-radius: var(--radius);
 `;
 
 const Seed = styled.input`
-  width: 80px;
+  width: 60px;
   border: none;
   padding: calc(var(--em) / 1);
   color: var(--grey-dark-3);
@@ -31,7 +31,7 @@ const Seed = styled.input`
   background-color: var(--grey-light-3);
   font-size: var(--text-large);
   border-radius: var(--radius);
-  text-align: center;
+  text-align: left;
   margin: 0;
   &::placeholder {
     color: var(--grey-dark-1);
@@ -79,7 +79,7 @@ export const Header = ({ seed, changeSeed, startingTeam }) => {
   useEffect(() => {
     let id = setInterval(() => {
       if (start) {
-        setCount(Math.floor((Date.now() - start)/1000));
+        setCount(Math.floor((Date.now() - start) / 1000));
       }
     }, 100);
     return () => clearInterval(id);

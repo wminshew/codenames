@@ -62,10 +62,10 @@ form {
   --death-accent: #ffff00;
 
   /* Fonts */
-  --text: calc(var(--em) * 1.3);
-  --text-tiny: calc(var(--em) * 0.9);
-  --text-small: calc(var(--em) * 1);
-  --text-large: calc(var(--text) * 1.4);
+  --text: 16px;
+  --text-tiny: calc(var(--em) * 0.7);
+  --text-small: calc(var(--text) * 0.8);
+  --text-large: calc(var(--text) * 1);
   --text-big: calc(var(--text) * 2);
   --text-light: 300;
   --text-regular: 400;
