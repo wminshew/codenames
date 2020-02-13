@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Row } from "react-grid-system";
-import styled from "styled-components";
+import { Row, setConfiguration } from "react-grid-system";
 
-const Background = styled.div`
-  background-color: #000;
-`;
+setConfiguration({ gridColumns: 15 });
 
 function useWindowSize() {
   const isClient = typeof window === "object";
@@ -37,11 +34,7 @@ function useWindowSize() {
 export function Board(props) {
   const size = useWindowSize();
   return (
-    <Row
-      component={Background}
-      gutterWidth={8}
-      style={{ height: size.height - 80 }}
-    >
+    <Row nogutter style={{ height: size.height - 80 }}>
       {props.children}
     </Row>
   );
