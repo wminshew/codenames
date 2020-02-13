@@ -36,7 +36,7 @@ const App = () => {
   }
 
   const solutions = SOLUTIONS_COUNT.flatMap((v, i) => Array(v).fill(i));
-  const first = Math.round(Math.random()); // 0 or 1
+  const first = Math.round(rng()); // 0 or 1
   if (first === 1) {
     solutions[SOLUTIONS_COUNT[0] - 1] = first;
   }
