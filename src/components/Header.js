@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col, Hidden } from "react-grid-system";
 import styled from "styled-components";
+import { isMobile } from "utils/isMobile"
 
 const Menu = styled.div`
   padding: calc(var(--em) * 2);
@@ -49,10 +50,6 @@ const Button = styled.button`
     outline: none;
   }
 `;
-
-const MAX_MOBILE_WIDTH = 480;
-const isMobile =
-  window.innerWidth < MAX_MOBILE_WIDTH || window.innerHeight < MAX_MOBILE_WIDTH;
 
 export const Header = () => (
   <Row component={Menu} align={"center"} nogutter>
