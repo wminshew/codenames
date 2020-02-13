@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-grid-system";
 import styled from "styled-components";
 import { isMobile } from "utils/isMobile";
@@ -79,6 +79,26 @@ const AccentMap = {
 
 export const Header = ({ seed, changeSeed, startingTeam }) => {
   const [newSeed, changeNewSeed] = useState(seed);
+  const [count, setCount] = useState(0);
+  const [timerStarted, setTimerStarted] = useState(false);
+
+  useEffect(() => {
+    let id = setInterval(() => {
+      if ( timerStarted ) {
+        setCount(count + 1);
+      }
+    }, 1000);
+    return () => clearInterval(id);
+  });
+
+  const startOrResetTimer = () => {
+    if ( !timerStarted ) {
+      setTimerStarted(true);
+    } else {
+      setCount(0);
+    }
+  }
+
   return (
     <Row component={Menu} align={"center"} nogutter>
       {!isMobile && (
@@ -87,20 +107,24 @@ export const Header = ({ seed, changeSeed, startingTeam }) => {
         </Col>
       )}
       <Col align={isMobile ? "start" : "center"}>
-        <Label>Board ID</Label>
-        <Seed
-          placeholder={seed}
-          maxLength={4}
-          type={"text"}
-          onChange={e => changeNewSeed(e.target.value)}
-        />
-        <Button type={"submit"} onClick={() => changeSeed(newSeed)}>
-          Load Board
-        </Button>
+        <form>
+          <Label>Board ID</Label>
+          <Seed
+            placeholder={seed}
+            maxLength={4}
+            type={"text"}
+            onChange={e => changeNewSeed(e.target.value)}
+          />
+          <Button type={"submit"} onClick={() => changeSeed(newSeed)}>
+            Load Board
+          </Button>
+        </form>
       </Col>
       {!isMobile && (
         <Col xs={"content"} align={"end"}>
-          <Button>Timer</Button>
+          <Button onClick={() => startOrResetTimer()}>
+              {count > 0 ? count : "Timer"}
+          </Button>
         </Col>
       )}
       {isMobile && (

@@ -19,10 +19,21 @@ const SOLUTIONS_COLORS = [
   "var(--death)"
 ];
 
-const initSeed = Math.floor(1000 + Math.random() * 9000);
+const initSeed = localStorage.getItem('seed') ||
+  Math.floor(1000 + Math.random() * 9000);
+
+if (localStorage.getItem('seed')) {
+  localStorage.removeItem('seed');
+}
 
 const App = () => {
   const [seed, changeSeed] = useState(initSeed);
+  const [updating, setUpdating] = useState(false);
+  const changeSeedAndStore = (newSeed) => {
+    setUpdating(true);
+    localStorage.setItem('seed', newSeed);
+    changeSeed(newSeed);
+  };
 
   const rng = seedRandom(seed);
 
@@ -45,7 +56,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header seed={seed} changeSeed={changeSeed} startingTeam={first} />
+      <Header seed={seed} changeSeed={changeSeedAndStore} startingTeam={first} />
       <Board>
         {shuffledSolutions.map((v, i) => {
           return (
@@ -54,6 +65,7 @@ const App = () => {
               color={SOLUTIONS_COLORS[v]}
               content={words[i]}
               revealed={isMobile}
+              updating={updating}
             />
           );
         })}
