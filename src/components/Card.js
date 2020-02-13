@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Col } from "react-grid-system";
 import styled from "styled-components";
 
+const MAX_MOBILE_WIDTH = 760;
+
 const Tile = styled.div`
   box-shadow: 0px 0px 0px 4px var(--background);
   display: flex;
@@ -20,31 +22,16 @@ const Clue = styled.div`
 
 export function Card({ color, content }) {
   const [revealed, setReveal] = useState(false);
-  if (!revealed) {
-    return (
-      <Col
-        component={Tile}
-        xs={3}
-        align={"center"}
-        color={revealed ? color : "#FFF"}
-        onClick={() => setReveal(!revealed)}
-      >
-        <Clue>{content}</Clue>
-      </Col>
-    );
-  }
-  if (revealed) {
-    return (
-      <Col
-        component={Tile}
-        xs={3}
-        align={"center"}
-        color={revealed ? color : "#FFF"}
-        onClick={() => setReveal(!revealed)}
-      >
-        <Clue>{content}</Clue>
-      </Col>
-    );
-  }
-  return null;
+  const isMobile = (window.innerWidth < MAX_MOBILE_WIDTH) || (window.innerHeight < MAX_MOBILE_WIDTH);
+  return (
+    <Col
+      component={Tile}
+      xs={3}
+      align={"center"}
+      color={(revealed || isMobile) ? color : "#FFF"}
+      onClick={() => setReveal(!revealed)}
+    >
+      <Clue>{content}</Clue>
+    </Col>
+  );
 }
