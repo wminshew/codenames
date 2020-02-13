@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Col } from "react-grid-system";
 import styled from "styled-components";
-import { isMobile } from "utils/isMobile"
 
 const Tile = styled.div`
   box-shadow: 0px 0px 0px 4px var(--background);
@@ -19,14 +18,15 @@ const Clue = styled.div`
   font-weight: var(--text-medium);
 `;
 
-export function Card({ color, content }) {
-  const [revealed, setReveal] = useState(false);
+export function Card({ color, content, revealed }) {
+  const [reveal, setReveal] = useState(revealed);
+
   return (
     <Col
       component={Tile}
       xs={3}
       align={"center"}
-      color={revealed || isMobile ? color : "#FFF"}
+      color={reveal ? color : "#FFF"}
       onClick={() => setReveal(true)}
     >
       <Clue>{content}</Clue>

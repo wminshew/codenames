@@ -5,6 +5,7 @@ import { Header } from "./components/Header";
 import { Board } from "./components/Board";
 import { Card } from "./components/Card";
 import { WORDS } from "./words.js";
+import { isMobile } from "utils/isMobile"
 
 import seedRandom from "seedrandom";
 import seededShuffle from "seededshuffle";
@@ -22,7 +23,7 @@ const initSeed = Math.floor(1000 + Math.random() * 9000);
 
 const App = () => {
   const [seed, changeSeed] = useState(initSeed)
-  console.log(seed)
+
   const rng = seedRandom(seed)
 
   // TODO: use javascript set and then convert to array?
@@ -44,11 +45,11 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header seed={seed} changeSeed={changeSeed}/>
+      <Header seed={seed} changeSeed={changeSeed} />
       <Board>
         {shuffledSolutions.map((v, i) => {
           return (
-            <Card key={i} color={SOLUTIONS_COLORS[v]} content={words[i]} />
+            <Card key={i} color={SOLUTIONS_COLORS[v]} content={words[i]} revealed={isMobile} />
           );
         })}
       </Board>
