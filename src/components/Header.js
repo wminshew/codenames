@@ -1,5 +1,5 @@
-import React from "react";
-import { Row, Col, Hidden } from "react-grid-system";
+import React, { useState } from "react";
+import { Row, Col } from "react-grid-system";
 import styled from "styled-components";
 import { isMobile } from "utils/isMobile"
 
@@ -51,22 +51,30 @@ const Button = styled.button`
   }
 `;
 
-export const Header = () => (
-  <Row component={Menu} align={"center"} nogutter>
-    {!isMobile && (
-      <Col xs={"content"}>
-        <Title>Codenames</Title>
+export const Header = ({seed, changeSeed}) => {
+  const [newSeed, changeNewSeed] = useState(seed);
+
+  return (
+    <Row component={Menu} align={"center"} nogutter>
+      {!isMobile && (
+        <Col xs={"content"}>
+          <Title>Codenames</Title>
+        </Col>
+      )}
+      <Col align={"center"}>
+        Board ID
+        <Seed placeholder={seed} maxLength={4} type={"text"}
+          onChange={e => changeNewSeed(e.target.value)}
+        />
+        <Button onClick={() => changeSeed(newSeed)}>
+            Load Board
+        </Button>
       </Col>
-    )}
-    <Col align={"center"}>
-      Board ID
-      <Seed placeholder={"1234"} maxLength={4} type={"text"} />
-      <Button>Load Board</Button>
-    </Col>
-    {!isMobile && (
-      <Col xs={"content"} align={"end"}>
-        <Button>Timer</Button>
-      </Col>
-    )}
-  </Row>
-);
+      {!isMobile && (
+        <Col xs={"content"} align={"end"}>
+          <Button>Timer</Button>
+        </Col>
+      )}
+    </Row>
+    
+)};
