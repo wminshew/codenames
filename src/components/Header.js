@@ -88,7 +88,7 @@ export const Header = ({ seed, changeSeed, startingTeam }) => {
       }
     }, 100);
     return () => clearInterval(id);
-  });
+  }, [start]);
 
   return (
     <Row component={Menu} align={"center"} nogutter>

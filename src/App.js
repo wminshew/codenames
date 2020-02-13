@@ -7,6 +7,7 @@ import { Card } from "./components/Card";
 import { WORDS } from "./words.js";
 import { isMobile } from "utils/isMobile";
 
+import NoSleep from "nosleep.js";
 import seedRandom from "seedrandom";
 import seededShuffle from "seededshuffle";
 
@@ -53,6 +54,14 @@ const App = () => {
     solutions[SOLUTIONS_COUNT[0] - 1] = first;
   }
   const shuffledSolutions = seededShuffle.shuffle(solutions, seed, true);
+
+  // Enable wake lock.
+  // (must be wrapped in a user input event handler e.g. a mouse or touch handler)
+  const noSleep = new NoSleep();
+  document.addEventListener('click', function enableNoSleep() {
+    document.removeEventListener('click', enableNoSleep, false);
+      noSleep.enable();
+  }, false);
 
   return (
     <div className="App">
