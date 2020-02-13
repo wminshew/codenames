@@ -24,6 +24,7 @@ const AccentMap = {
 
 const Clue = styled.div`
   font-weight: var(--text-semi-bold);
+  font-size: var(--text-big);
   color: ${props =>
     props.revealed ? AccentMap[props.color] : "var(--grey-dark-3)"};
 `;
