@@ -46,13 +46,14 @@ const Button = styled.button`
   border: none;
   padding: var(--em) calc(var(--em) * 2);
   border-radius: var(--radius);
-  background-color: var(--primary);
+  background-color: ${props =>
+    props.disabled ? "var(--primary-light-1)" : "var(--primary)"};
   font-size: var(--text-large);
   font-weight: var(--text-semi-bold);
   color: var(--primary-light-2);
   margin: 0 var(--em);
   &:hover {
-    cursor: pointer;
+    cursor: ${props => (props.disabled ? "default" : "pointer")};
   }
   &:focus {
     outline: none;
@@ -96,8 +97,13 @@ export const Header = ({ seed, changeSeed, startingTeam }) => {
             type={"text"}
             onChange={e => changeNewSeed(e.target.value)}
           />
-            <Button type={"submit"} onClick={() => changeSeed(newSeed)}
-              disabled={newSeed === seed || newSeed === "" || parseInt(newSeed) === 0}>
+          <Button
+            type={"submit"}
+            onClick={() => changeSeed(newSeed)}
+            disabled={
+              newSeed === seed || newSeed === "" || parseInt(newSeed) === 0
+            }
+          >
             Load
           </Button>
         </form>
