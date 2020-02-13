@@ -58,10 +58,12 @@ const App = () => {
   // Enable wake lock.
   // (must be wrapped in a user input event handler e.g. a mouse or touch handler)
   const noSleep = new NoSleep();
-  document.addEventListener('click', function enableNoSleep() {
+  const enableNoSleep = () => {
     document.removeEventListener('click', enableNoSleep, false);
-      noSleep.enable();
-  }, false);
+    noSleep.enable();
+  }
+  document.addEventListener('click', enableNoSleep, false);
+  document.addEventListener('touchstart', enableNoSleep, false);
 
   return (
     <div className="App">
