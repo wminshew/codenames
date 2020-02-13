@@ -96,8 +96,9 @@ export const Header = ({ seed, changeSeed, startingTeam }) => {
             type={"text"}
             onChange={e => changeNewSeed(e.target.value)}
           />
-          <Button type={"submit"} onClick={() => changeSeed(newSeed)}>
-            Load Board
+            <Button type={"submit"} onClick={() => changeSeed(newSeed)}
+              disabled={newSeed === seed || newSeed === "" || parseInt(newSeed) === 0}>
+            Load
           </Button>
         </form>
       </Col>
