@@ -79,24 +79,16 @@ const AccentMap = {
 export const Header = ({ seed, changeSeed, startingTeam }) => {
   const [newSeed, changeNewSeed] = useState(seed);
   const [count, setCount] = useState(0);
-  const [timerStarted, setTimerStarted] = useState(false);
+  const [start, setStart] = useState(false);
 
   useEffect(() => {
     let id = setInterval(() => {
-      if (timerStarted) {
-        setCount(count + 1);
+      if (start) {
+        setCount(Math.floor((Date.now() - start)/1000));
       }
-    }, 1000);
+    }, 100);
     return () => clearInterval(id);
   });
-
-  const startOrResetTimer = () => {
-    if (!timerStarted) {
-      setTimerStarted(true);
-    } else {
-      setCount(0);
-    }
-  };
 
   return (
     <Row component={Menu} align={"center"} nogutter>
@@ -116,9 +108,9 @@ export const Header = ({ seed, changeSeed, startingTeam }) => {
       </Col>
       {!isMobile && (
         <Col xs={2} align={"end"}>
-          {timerStarted && <Label>{count}</Label>}
-          <Button onClick={() => startOrResetTimer()}>
-            {timerStarted || count > 0 ? "Reset" : "Start Timer"}
+          {start && <Label>{count}</Label>}
+          <Button onClick={() => setStart(Date.now())}>
+            {start || count > 0 ? "Reset" : "Start Timer"}
           </Button>
         </Col>
       )}
