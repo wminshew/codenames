@@ -39,7 +39,6 @@ const Seed = styled.input`
   border-radius: var(--radius);
   text-align: center;
   margin: 0 var(--em);
-  text-transform: lowercase;
   &::placeholder {
     color: var(--grey-dark-1);
   }
@@ -84,7 +83,7 @@ export const Header = ({ seed, changeSeed, startingTeam }) => {
 
   useEffect(() => {
     let id = setInterval(() => {
-      if ( timerStarted ) {
+      if (timerStarted) {
         setCount(count + 1);
       }
     }, 1000);
@@ -92,21 +91,16 @@ export const Header = ({ seed, changeSeed, startingTeam }) => {
   });
 
   const startOrResetTimer = () => {
-    if ( !timerStarted ) {
+    if (!timerStarted) {
       setTimerStarted(true);
     } else {
       setCount(0);
     }
-  }
+  };
 
   return (
     <Row component={Menu} align={"center"} nogutter>
-      {!isMobile && (
-        <Col xs={"content"}>
-          <Title>Codenames</Title>
-        </Col>
-      )}
-      <Col align={isMobile ? "start" : "center"}>
+      <Col align={"start"}>
         <form>
           <Label>Board ID</Label>
           <Seed
@@ -121,9 +115,10 @@ export const Header = ({ seed, changeSeed, startingTeam }) => {
         </form>
       </Col>
       {!isMobile && (
-        <Col xs={"content"} align={"end"}>
+        <Col xs={2} align={"end"}>
+          {timerStarted && <Label>{count}</Label>}
           <Button onClick={() => startOrResetTimer()}>
-              {count > 0 ? count : "Timer"}
+            {timerStarted || count > 0 ? "Reset" : "Start Timer"}
           </Button>
         </Col>
       )}
