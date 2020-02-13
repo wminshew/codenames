@@ -30,7 +30,7 @@ input {
 :root {
   /* General */
   --em: 8px;
-  --radius: 2px;
+  --radius: 4px;
   --transition: all 140ms ease-in-out;
   --border: 2px;
 
