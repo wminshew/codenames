@@ -20,7 +20,7 @@ const SOLUTIONS_COLORS = [
 ];
 
 const initSeed = localStorage.getItem('seed') ||
-  Math.floor(1000 + Math.random() * 9000);
+  Math.floor(1000 + Math.random() * 9000).toString();
 
 if (localStorage.getItem('seed')) {
   localStorage.removeItem('seed');
