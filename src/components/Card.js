@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Col } from "react-grid-system";
 import styled from "styled-components";
 
@@ -31,18 +31,23 @@ const Clue = styled.div`
 
 export function Card({ color, content, revealed, updating }) {
   const [reveal, setReveal] = useState(revealed);
+    useEffect( () => {
+        if (updating) {
+            setReveal(revealed);
+        };
+    }, [revealed, updating]);
 
-  return (
-    <Col
-      component={Tile}
-      xs={3}
-      align={"center"}
-      color={reveal && !updating ? color : "#FFF"}
-      onClick={() => setReveal(true)}
-    >
-      <Clue revealed={reveal} color={color}>
-        {content}
-      </Clue>
-    </Col>
-  );
-}
+    return (
+            <Col
+        component={Tile}
+        xs={3}
+        align={"center"}
+        color={reveal && !updating ? color : "#FFF"}
+        onClick={() => setReveal(true)}
+            >
+            <Clue revealed={reveal} color={color}>
+            {content}
+        </Clue>
+            </Col>
+    );
+};

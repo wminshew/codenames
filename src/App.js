@@ -34,6 +34,9 @@ const App = () => {
     setUpdating(true);
     localStorage.setItem('seed', newSeed);
     changeSeed(newSeed);
+      setTimeout( () => {
+          setUpdating(false);
+      }, 1000);
   };
 
   const rng = seedRandom(seed);
