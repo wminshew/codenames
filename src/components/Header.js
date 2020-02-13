@@ -50,22 +50,26 @@ const Button = styled.button`
   }
 `;
 
+const MAX_MOBILE_WIDTH = 480;
+const isMobile =
+  window.innerWidth < MAX_MOBILE_WIDTH || window.innerHeight < MAX_MOBILE_WIDTH;
+
 export const Header = () => (
   <Row component={Menu} align={"center"} nogutter>
-    <Hidden xs>
+    {!isMobile && (
       <Col xs={"content"}>
         <Title>Codenames</Title>
       </Col>
-    </Hidden>
+    )}
     <Col align={"center"}>
       Board ID
       <Seed placeholder={"1234"} maxLength={4} type={"text"} />
       <Button>Load Board</Button>
     </Col>
-    <Hidden xs>
+    {!isMobile && (
       <Col xs={"content"} align={"end"}>
         <Button>Timer</Button>
       </Col>
-    </Hidden>
+    )}
   </Row>
 );
