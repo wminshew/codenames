@@ -78,7 +78,7 @@ const App = () => {
               key={i}
               color={SOLUTIONS_COLORS[v]}
               content={words[i]}
-              revealed={isMobile}
+              isMobile={isMobile}
               updating={updating}
             />
           );
