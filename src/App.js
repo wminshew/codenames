@@ -35,7 +35,7 @@ const App = () => {
     localStorage.setItem('seed', newSeed);
     changeSeed(newSeed);
       setTimeout( () => {
-          setUpdating(false);
+        setUpdating(false);
       }, 1000);
   };
 
@@ -70,7 +70,11 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header seed={seed} changeSeed={changeSeedAndStore} startingTeam={first} />
+      <Header
+        seed={seed}
+        changeSeed={changeSeedAndStore}
+        startingTeam={first}
+      />
       <Board>
         {shuffledSolutions.map((v, i) => {
           return (
