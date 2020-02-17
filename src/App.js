@@ -63,6 +63,7 @@ const App = () => {
   const noSleep = new NoSleep();
   const enableNoSleep = () => {
     document.removeEventListener('click', enableNoSleep, false);
+    document.removeEventListener('touchstart', enableNoSleep, false);
     noSleep.enable();
   }
   document.addEventListener('click', enableNoSleep, false);
