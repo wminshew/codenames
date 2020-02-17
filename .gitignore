@@ -27,3 +27,6 @@ yarn-error.log*
 
 # tags
 tags*
+
+# tern-port
+.tern-port
