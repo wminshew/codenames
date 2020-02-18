@@ -8,7 +8,7 @@ const Menu = styled.div`
 `;
 
 const Label = styled.span`
-  color: var(--primary);
+  color: rgba(255, 255, 255, 0.98);
   font-weight: var(--text-heavy);
   margin: 0 var(--em);
 `;
@@ -28,13 +28,13 @@ const Seed = styled.input`
   padding: calc(var(--em) / 1);
   color: var(--grey-dark-3);
   font-weight: var(--text-semi-bold);
-  background-color: var(--grey-light-3);
+  background-color: rgba(255, 255, 255, 0.98);
   font-size: var(--text-large);
   border-radius: var(--radius);
   text-align: left;
   margin: 0;
   &::placeholder {
-    color: var(--grey-dark-1);
+    color: var(--grey-dark-2);
   }
   &:focus {
     outline: none;
@@ -47,10 +47,11 @@ const Button = styled.button`
   padding: var(--em) calc(var(--em) * 2);
   border-radius: var(--radius);
   background-color: ${props =>
-    props.disabled ? "var(--primary-light-1)" : "var(--primary)"};
+    props.disabled ? "rgba(255,255,255,0.25)" : "var(--primary)"};
   font-size: var(--text-large);
   font-weight: var(--text-semi-bold);
-  color: var(--primary-light-2);
+  color: ${props =>
+    props.disabled ? "rgba(255,255,255,0.68)" : "var(--grey-dark-2)"};
   margin: 0 var(--em);
   &:hover {
     cursor: ${props => (props.disabled ? "default" : "pointer")};

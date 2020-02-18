@@ -4,7 +4,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  background-color: var(--background);
+  background-color: var(--grey-dark-3);
 }
 
 a {
@@ -44,12 +44,12 @@ form {
   --grey: #9f9f9f;
   --grey-dark-1: #777777;
   --grey-dark-2: #454545;
-  --grey-dark-3: #222;
+  --grey-dark-3: #000;
 
   --primary-light-2: #faf8ff;
   --primary-light-1: #c7d2d8;
-  --primary: #657b87;
-  --primary-dark-1: #8155da;
+  --primary: #66ff99;
+  --primary-disabled: rgba(102, 255, 153, 0.5);
   --primary-dark-2: #3600a1;
 
   --team-1: #fe4164;

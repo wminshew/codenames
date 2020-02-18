@@ -3,14 +3,14 @@ import { Col } from "react-grid-system";
 import styled from "styled-components";
 
 const AccentMap = {
-    "var(--team-1)": "var(--team-1-accent)",
-    "var(--team-2)": "var(--team-2-accent)",
-    "var(--neutral)": "var(--neutral-accent)",
-    "var(--death)": "var(--death-accent)"
+  "var(--team-1)": "var(--team-1-accent)",
+  "var(--team-2)": "var(--team-2-accent)",
+  "var(--neutral)": "var(--neutral-accent)",
+  "var(--death)": "var(--death-accent)"
 };
 
 const Tile = styled.div`
-  box-shadow: 0px 0px 0px 1px var(--background);
+  box-shadow: 0px 0px 0px 1px var(--grey-dark-3);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,9 +23,9 @@ const Tile = styled.div`
 `;
 
 const Clue = styled.div`
-  font-weight: ${ props =>
+  font-weight: ${props =>
     props.isMobile ? "var(--text-medium)" : "var(--text-semi-bold)"};
-  font-size: ${ props =>
+  font-size: ${props =>
     props.isMobile ? "var(--text-large)" : "var(--text-big)"};
   color: ${props =>
     props.revealed ? AccentMap[props.color] : "var(--grey-dark-3)"};
@@ -33,10 +33,10 @@ const Clue = styled.div`
 
 export function Card({ color, content, isMobile, updating }) {
   const [reveal, setReveal] = useState(isMobile);
-  useEffect( () => {
-      if (updating) {
-          setReveal(isMobile);
-      };
+  useEffect(() => {
+    if (updating) {
+      setReveal(isMobile);
+    }
   }, [isMobile, updating]);
 
   return (
@@ -52,4 +52,4 @@ export function Card({ color, content, isMobile, updating }) {
       </Clue>
     </Col>
   );
-};
+}
