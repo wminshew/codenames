@@ -20,23 +20,24 @@ const SOLUTIONS_COLORS = [
   "var(--death)"
 ];
 
-const initSeed = localStorage.getItem('seed') ||
+const initSeed =
+  localStorage.getItem("seed") ||
   Math.floor(1000 + Math.random() * 9000).toString();
 
-if (localStorage.getItem('seed')) {
-  localStorage.removeItem('seed');
+if (localStorage.getItem("seed")) {
+  localStorage.removeItem("seed");
 }
 
 const App = () => {
   const [seed, changeSeed] = useState(initSeed);
   const [updating, setUpdating] = useState(false);
-  const changeSeedAndStore = (newSeed) => {
+  const changeSeedAndStore = newSeed => {
     setUpdating(true);
-    localStorage.setItem('seed', newSeed);
+    localStorage.setItem("seed", newSeed);
     changeSeed(newSeed);
-      setTimeout( () => {
-        setUpdating(false);
-      }, 1000);
+    setTimeout(() => {
+      setUpdating(false);
+    }, 1000);
   };
 
   const rng = seedRandom(seed);
@@ -62,12 +63,12 @@ const App = () => {
   // (must be wrapped in a user input event handler e.g. a mouse or touch handler)
   const noSleep = new NoSleep();
   const enableNoSleep = () => {
-    document.removeEventListener('click', enableNoSleep, false);
-    document.removeEventListener('touchstart', enableNoSleep, false);
+    document.removeEventListener("click", enableNoSleep, false);
+    document.removeEventListener("touchstart", enableNoSleep, false);
     noSleep.enable();
-  }
-  document.addEventListener('click', enableNoSleep, false);
-  document.addEventListener('touchstart', enableNoSleep, false);
+  };
+  document.addEventListener("click", enableNoSleep, false);
+  document.addEventListener("touchstart", enableNoSleep, false);
 
   return (
     <div className="App">
@@ -75,8 +76,9 @@ const App = () => {
         seed={seed}
         changeSeed={changeSeedAndStore}
         startingTeam={first}
-      />
+      />{" "}
       <Board>
+        {" "}
         {shuffledSolutions.map((v, i) => {
           return (
             <Card
@@ -87,8 +89,8 @@ const App = () => {
               updating={updating}
             />
           );
-        })}
-      </Board>
+        })}{" "}
+      </Board>{" "}
     </div>
   );
 };
