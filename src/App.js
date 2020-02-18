@@ -37,7 +37,7 @@ const App = () => {
     changeSeed(newSeed);
     setTimeout(() => {
       setUpdating(false);
-    }, 1000);
+    }, 100);
   };
 
   const rng = seedRandom(seed);
