@@ -7,18 +7,24 @@
           "jsx": true
       }
   },
+  "env": {
+    "es6": true,
+  },
   "plugins": [
-    "prettier", "react", "jsx-ally", "import", "flowtype"
+    "prettier",
+    "react",
+    "import",
+    "flowtype"
   ],
   "extends": [
     "eslint:recommended",
     "plugin:flowtype/recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "prettier/react"
   ],
   "rules": {
-    "eslint/comma-dangle": "only-multiline",
+    "eslint/comma-dangle": 0,
     "prettier/prettier": "error",
-    "prettier/trailingComma" : "all"
   }
 }
