@@ -24,7 +24,7 @@
     "prettier/react"
   ],
   "rules": {
-    "eslint/comma-dangle": 0,
+    "eslint/comma-dangle": ["error", "always-multiline"],
     "prettier/prettier": "error",
   }
 }
