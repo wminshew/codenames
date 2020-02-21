@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import { Header } from "./components/Header";
@@ -12,6 +12,7 @@ import seedRandom from "seedrandom";
 import seededShuffle from "seededshuffle";
 
 const GAME_SIZE = 25;
+const INITIAL_BOARD = new Array(GAME_SIZE).fill(0);
 const SOLUTIONS_COUNT = [9, 8, 7, 1];
 const SOLUTIONS_COLORS = [
   "var(--team-1)",
@@ -28,13 +29,31 @@ if (localStorage.getItem("seed")) {
   localStorage.removeItem("seed");
 }
 
+const checkWinner = (first, solution, board) => {
+  const score = checkScore(solution, board);
+  console.log(score);
+  return (score[first] === 9 || score[1-first] === 8)
+}
+
+const checkScore = (solution, board) => {
+  const score = [0,0,0,0];
+  board.map((v, i) => {
+    score[solution[i]] += v;
+  })
+  return score;
+}
+
+
 const App = () => {
   const [seed, changeSeed] = useState(initSeed);
   const [updating, setUpdating] = useState(false);
+  const [board, updateBoard] = useState(INITIAL_BOARD);
+
   const changeSeedAndStore = newSeed => {
     setUpdating(true);
     localStorage.setItem("seed", newSeed);
     changeSeed(newSeed);
+    updateBoard(INITIAL_BOARD);
     setTimeout(() => {
       setUpdating(false);
     }, 100);
@@ -58,6 +77,20 @@ const App = () => {
     solutions[SOLUTIONS_COUNT[0] - 1] = first;
   }
   const shuffledSolutions = seededShuffle.shuffle(solutions, seed, true);
+
+  useEffect(() => {
+    if (checkWinner(first, shuffledSolutions, board)) {
+      confetti.start(); // eslint-disable-line
+    }
+  }, [board]);
+
+  const addCardToScore = (key) => {
+    return () => {
+      const newBoard = board.slice(0);
+      newBoard[key] = 1;
+      updateBoard(newBoard);
+    }
+  }
 
   // Enable wake lock.
   // (must be wrapped in a user input event handler e.g. a mouse or touch handler)
@@ -87,6 +120,7 @@ const App = () => {
               content={words[i]}
               isMobile={isMobile}
               updating={updating}
+              addCardToScore={addCardToScore(i)}
             />
           );
         })}{" "}

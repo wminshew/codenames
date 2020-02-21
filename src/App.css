@@ -56,7 +56,8 @@ form {
   --team-1-accent: rgba(0, 0, 0, 0.48);
   --team-2: #5398ff;
   --team-2-accent: rgba(0, 0, 0, 0.48);
-  --neutral: #dee3e3;
+  /* --neutral: #dee3e3; */
+  --neutral: var(--grey-dark-1);
   --neutral-accent: rgba(0, 0, 0, 0.48);
   --death: #222;
   --death-accent: #ffff00;
