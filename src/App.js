@@ -31,18 +31,18 @@ if (localStorage.getItem("seed")) {
 
 const checkWinner = (first, solution, board) => {
   const score = checkScore(solution, board);
-  console.log(score);
-  return (score[first] === 9 || score[1-first] === 8)
-}
+  console.log("First Remaining: " + (9 - score[first]));
+  console.log("Second Remaining: " + (8 - score[1 - first]));
+  return score[first] === 9 || score[1 - first] === 8;
+};
 
 const checkScore = (solution, board) => {
-  const score = [0,0,0,0];
+  const score = [0, 0, 0, 0];
   board.map((v, i) => {
     score[solution[i]] += v;
-  })
+  });
   return score;
-}
-
+};
 
 const App = () => {
   const [seed, changeSeed] = useState(initSeed);
@@ -84,13 +84,13 @@ const App = () => {
     }
   }, [board]);
 
-  const addCardToScore = (key) => {
+  const addCardToScore = key => {
     return () => {
       const newBoard = board.slice(0);
       newBoard[key] = 1;
       updateBoard(newBoard);
-    }
-  }
+    };
+  };
 
   // Enable wake lock.
   // (must be wrapped in a user input event handler e.g. a mouse or touch handler)

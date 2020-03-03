@@ -31,7 +31,14 @@ const Clue = styled.div`
     props.revealed ? AccentMap[props.color] : "var(--grey-dark-3)"};
 `;
 
-export function Card({ key, color, content, isMobile, updating, addCardToScore }) {
+export function Card({
+  key,
+  color,
+  content,
+  isMobile,
+  updating,
+  addCardToScore
+}) {
   const [reveal, setReveal] = useState(isMobile);
 
   useEffect(() => {
@@ -43,7 +50,7 @@ export function Card({ key, color, content, isMobile, updating, addCardToScore }
     if (reveal) {
       addCardToScore();
     }
-  }, [reveal])
+  }, [reveal]);
 
   return (
     <Col

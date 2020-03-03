@@ -1,21 +1,17 @@
 {
   "parser": "babel-eslint",
   "parserOptions": {
-      "ecmaVersion": 7,
-      "sourceType": "module",
-      "ecmaFeatures": {
-          "jsx": true
-      }
+    "ecmaVersion": 7,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "env": {
     "es6": true,
+    "browser": true
   },
-  "plugins": [
-    "prettier",
-    "react",
-    "import",
-    "flowtype"
-  ],
+  "plugins": ["prettier", "react", "import", "flowtype"],
   "extends": [
     "eslint:recommended",
     "plugin:flowtype/recommended",
@@ -25,6 +21,6 @@
   ],
   "rules": {
     "eslint/comma-dangle": ["error", "always-multiline"],
-    "prettier/prettier": "error",
+    "prettier/prettier": "error"
   }
 }

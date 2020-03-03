@@ -34,7 +34,7 @@ const Seed = styled.input`
   text-align: left;
   margin: 0;
   &::placeholder {
-    color: var(--grey-dark-2);
+    color: rgba(0, 0, 0, 0.32);
   }
   &:focus {
     outline: none;
@@ -91,13 +91,13 @@ export const Header = ({ seed, changeSeed, startingTeam }) => {
     <Row component={Menu} align={"center"} nogutter>
       <Col>
         <form>
-          <Label>Board</Label>
+          <Label> Board </Label>{" "}
           <Seed
             placeholder={seed}
             maxLength={4}
             type={"text"}
             onChange={e => changeNewSeed(e.target.value)}
-          />
+          />{" "}
           <Button
             type={"submit"}
             onClick={() => changeSeed(newSeed)}
@@ -105,23 +105,25 @@ export const Header = ({ seed, changeSeed, startingTeam }) => {
               newSeed === seed || newSeed === "" || parseInt(newSeed) === 0
             }
           >
-            Load
-          </Button>
-        </form>
-      </Col>
+            Load{" "}
+          </Button>{" "}
+        </form>{" "}
+      </Col>{" "}
       {!isMobile && (
         <Col xs={2} align={"end"}>
-          {start && <Label>{count}</Label>}
+          {" "}
+          {start && <Label> {count} </Label>}{" "}
           <Button onClick={() => setStart(Date.now())}>
-            {start || count > 0 ? "Reset" : "Start Timer"}
-          </Button>
+            {" "}
+            {start || count > 0 ? "Reset" : "Start Timer"}{" "}
+          </Button>{" "}
         </Col>
-      )}
+      )}{" "}
       {isMobile && (
         <Col xs={"content"} align={"center"}>
-          <FirstTeam color={ColorMap[startingTeam]}>Team 1</FirstTeam>
+          <FirstTeam color={ColorMap[startingTeam]}> Team 1 </FirstTeam>{" "}
         </Col>
-      )}
+      )}{" "}
     </Row>
   );
 };
