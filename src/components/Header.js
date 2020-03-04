@@ -22,6 +22,16 @@ const FirstTeam = styled.span`
   border-radius: var(--radius);
 `;
 
+const RemainingCount = styled.span`
+  color: ${props => AccentMap[props.color]};
+  background-color: ${props => props.color};
+  font-size: var(--text-big);
+  font-weight: var(--text-semi-bold);
+  padding: calc(var(--em) / 2) var(--em);
+  border-radius: var(--radius);
+  margin-right: var(--em);
+`;
+
 const Seed = styled.input`
   width: 60px;
   border: none;
@@ -89,7 +99,7 @@ export const Header = ({ seed, setSeed, startingTeam, score }) => {
 
   return (
     <Row component={Menu} align={"center"} nogutter>
-      <Col>
+      <Col align={"start"}>
         <form>
           <Label> Board </Label>
           <Seed
@@ -110,21 +120,26 @@ export const Header = ({ seed, setSeed, startingTeam, score }) => {
         </form>
       </Col>
       {!isMobile && (
-        <>
-          <Col xs={2} align={"center"}>
-            <Label>Red: {8 + (startingTeam === 0) - score[0]}</Label>
-            <Label>Blue: {8 + (startingTeam === 1) - score[1]}</Label>
-          </Col>
-          <Col xs={2} align={"end"}>
-            {start && <Label>{count}</Label>}
-            <Button onClick={() => setStart(Date.now())}>
-              {start || count > 0 ? "Reset" : "Start Timer"}
-            </Button>
-          </Col>
-        </>
+        <Col align={"center"}>
+          <Label>Remaining</Label>
+          <RemainingCount color={"var(--team-1)"}>
+            {8 + (startingTeam === 0) - score[0]}
+          </RemainingCount>
+          <RemainingCount color={"var(--team-2)"}>
+            {8 + (startingTeam === 1) - score[1]}
+          </RemainingCount>
+        </Col>
+      )}
+      {!isMobile && (
+        <Col align={"end"}>
+          {start && <Label>{count}</Label>}
+          <Button onClick={() => setStart(Date.now())}>
+            {start || count > 0 ? "Reset" : "Start Timer"}
+          </Button>
+        </Col>
       )}
       {isMobile && (
-        <Col xs={"content"} align={"center"}>
+        <Col xs={"content"} align={"end"}>
           <FirstTeam color={ColorMap[startingTeam]}> Team 1 </FirstTeam>
         </Col>
       )}
