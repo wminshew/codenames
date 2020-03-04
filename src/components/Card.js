@@ -31,14 +31,7 @@ const Clue = styled.div`
     props.revealed ? AccentMap[props.color] : "var(--grey-dark-3)"};
 `;
 
-export function Card({
-  key,
-  color,
-  content,
-  isMobile,
-  updating,
-  addCardToScore
-}) {
+export function Card({ color, content, isMobile, updating, addCardToScore }) {
   const [reveal, setReveal] = useState(isMobile);
 
   useEffect(() => {
@@ -46,11 +39,12 @@ export function Card({
       setReveal(isMobile);
     }
   }, [isMobile, updating]);
+
   useEffect(() => {
     if (reveal) {
       addCardToScore();
     }
-  }, [reveal]);
+  }, [reveal]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Col

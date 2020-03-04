@@ -21,97 +21,99 @@ const SOLUTIONS_COLORS = [
   "var(--death)"
 ];
 
-const initSeed =
-  localStorage.getItem("seed") ||
-  Math.floor(1000 + Math.random() * 9000).toString();
+const initSeed = localStorage.getItem("seed") ||
+      Math.floor(1000 + Math.random() * 9000).toString();
 
 if (localStorage.getItem("seed")) {
   localStorage.removeItem("seed");
 }
 
-const checkWinner = (first, solution, board) => {
-  const score = checkScore(solution, board);
-  console.log("First Remaining: " + (9 - score[first]));
-  console.log("Second Remaining: " + (8 - score[1 - first]));
-  return score[first] === 9 || score[1 - first] === 8;
+const checkWinner = (first, score) => {
+  return score[first] === SOLUTIONS_COUNT[0] || score[1 - first] === SOLUTIONS_COUNT[1];
 };
 
 const checkScore = (solution, board) => {
   const score = [0, 0, 0, 0];
-  board.map((v, i) => {
+  board.forEach((v, i) => {
     score[solution[i]] += v;
   });
   return score;
 };
 
+const addCardToScore = (key, board, updateBoard) => () => {
+  const newBoard = board.slice(0);
+  newBoard[key] = 1;
+  updateBoard(newBoard);
+};
+
+const setSeedAndStore = (setUpdating, setSeed, updateBoard) => newSeed => {
+  setUpdating(true);
+  localStorage.setItem("seed", newSeed);
+  setSeed(newSeed);
+  updateBoard(INITIAL_BOARD);
+  setTimeout(() => {
+    setUpdating(false);
+  }, 100);
+};
+
 const App = () => {
-  const [seed, changeSeed] = useState(initSeed);
+  const [seed, setSeed] = useState(initSeed);
   const [updating, setUpdating] = useState(false);
+  const [first, setFirst] = useState(0);
+  const [words, setWords] = useState([]);
   const [board, updateBoard] = useState(INITIAL_BOARD);
+  const [shuffledSolutions, setShuffledSolutions] = useState([]);
+  const [score, setScore] = useState(new Array(2).fill(0));
 
-  const changeSeedAndStore = newSeed => {
-    setUpdating(true);
-    localStorage.setItem("seed", newSeed);
-    changeSeed(newSeed);
-    updateBoard(INITIAL_BOARD);
-    setTimeout(() => {
-      setUpdating(false);
-    }, 100);
-  };
+  useEffect( () => {
+    const rng = seedRandom(seed);
 
-  const rng = seedRandom(seed);
+    // TODO: use javascript set and then convert to array?
+    const tempWords = [];
+    for (; tempWords.length < GAME_SIZE; ) {
+      var word;
+      do {
+        word = WORDS[Math.floor(rng() * WORDS.length)];
+      } while (tempWords.includes(word));
+      tempWords.push(word);
+    }
+    setWords(tempWords)
 
-  // TODO: use javascript set and then convert to array?
-  const words = [];
-  for (; words.length < GAME_SIZE; ) {
-    var word;
-    do {
-      word = WORDS[Math.floor(rng() * WORDS.length)];
-    } while (words.includes(word));
-    words.push(word);
-  }
-
-  const solutions = SOLUTIONS_COUNT.flatMap((v, i) => Array(v).fill(i));
-  const first = Math.round(rng()); // 0 or 1
-  if (first === 1) {
-    solutions[SOLUTIONS_COUNT[0] - 1] = first;
-  }
-  const shuffledSolutions = seededShuffle.shuffle(solutions, seed, true);
+    const solutions = SOLUTIONS_COUNT.flatMap((v, i) => Array(v).fill(i));
+    setFirst(Math.round(rng())); // 0 or 1
+    setShuffledSolutions(seededShuffle.shuffle(solutions, seed, true));
+  }, [seed])
 
   useEffect(() => {
-    if (checkWinner(first, shuffledSolutions, board)) {
+    setScore(checkScore(shuffledSolutions, board))
+  }, [shuffledSolutions, board]);
+
+  useEffect(() => {
+    if (checkWinner(first, score)) {
       confetti.start(); // eslint-disable-line
     }
-  }, [board]);
+  }, [first, score]);
 
-  const addCardToScore = key => {
-    return () => {
-      const newBoard = board.slice(0);
-      newBoard[key] = 1;
-      updateBoard(newBoard);
+  useEffect(() => {
+    // Enable wake lock.
+    // (must be wrapped in a user input event handler e.g. a mouse or touch handler)
+    const noSleep = new NoSleep();
+    const enableNoSleep = () => {
+      document.removeEventListener("click", enableNoSleep, false);
+      noSleep.enable();
     };
-  };
-
-  // Enable wake lock.
-  // (must be wrapped in a user input event handler e.g. a mouse or touch handler)
-  const noSleep = new NoSleep();
-  const enableNoSleep = () => {
-    document.removeEventListener("click", enableNoSleep, false);
-    document.removeEventListener("touchstart", enableNoSleep, false);
-    noSleep.enable();
-  };
-  document.addEventListener("click", enableNoSleep, false);
-  document.addEventListener("touchstart", enableNoSleep, false);
+    document.addEventListener("click", enableNoSleep, false);
+  }, []);
 
   return (
     <div className="App">
       <Header
         seed={seed}
-        changeSeed={changeSeedAndStore}
+        setSeed={setSeedAndStore(setUpdating, setSeed, updateBoard)}
         startingTeam={first}
-      />{" "}
+        score={score}
+      />
       <Board>
-        {" "}
         {shuffledSolutions.map((v, i) => {
           return (
             <Card
@@ -120,11 +122,11 @@ const App = () => {
               content={words[i]}
               isMobile={isMobile}
               updating={updating}
-              addCardToScore={addCardToScore(i)}
+              addCardToScore={addCardToScore(i, board, updateBoard)}
             />
           );
-        })}{" "}
-      </Board>{" "}
+        })}
+      </Board>
     </div>
   );
 };

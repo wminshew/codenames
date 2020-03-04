@@ -73,8 +73,8 @@ const AccentMap = {
   "var(--death)": "var(--death-accent)"
 };
 
-export const Header = ({ seed, changeSeed, startingTeam }) => {
-  const [newSeed, changeNewSeed] = useState(seed);
+export const Header = ({ seed, setSeed, startingTeam, score }) => {
+  const [newSeed, setNewSeed] = useState(seed);
   const [count, setCount] = useState(0);
   const [start, setStart] = useState(false);
 
@@ -91,39 +91,43 @@ export const Header = ({ seed, changeSeed, startingTeam }) => {
     <Row component={Menu} align={"center"} nogutter>
       <Col>
         <form>
-          <Label> Board </Label>{" "}
+          <Label> Board </Label>
           <Seed
             placeholder={seed}
             maxLength={4}
             type={"text"}
-            onChange={e => changeNewSeed(e.target.value)}
-          />{" "}
+            onChange={e => setNewSeed(e.target.value)}
+          />
           <Button
             type={"submit"}
-            onClick={() => changeSeed(newSeed)}
+            onClick={() => setSeed(newSeed)}
             disabled={
               newSeed === seed || newSeed === "" || parseInt(newSeed) === 0
             }
           >
-            Load{" "}
-          </Button>{" "}
-        </form>{" "}
-      </Col>{" "}
+            Load
+          </Button>
+        </form>
+      </Col>
       {!isMobile && (
-        <Col xs={2} align={"end"}>
-          {" "}
-          {start && <Label> {count} </Label>}{" "}
-          <Button onClick={() => setStart(Date.now())}>
-            {" "}
-            {start || count > 0 ? "Reset" : "Start Timer"}{" "}
-          </Button>{" "}
-        </Col>
-      )}{" "}
+        <>
+          <Col xs={2} align={"center"}>
+            <Label>Red: {8 + (startingTeam === 0) - score[0]}</Label>
+            <Label>Blue: {8 + (startingTeam === 1) - score[1]}</Label>
+          </Col>
+          <Col xs={2} align={"end"}>
+            {start && <Label>{count}</Label>}
+            <Button onClick={() => setStart(Date.now())}>
+              {start || count > 0 ? "Reset" : "Start Timer"}
+            </Button>
+          </Col>
+        </>
+      )}
       {isMobile && (
         <Col xs={"content"} align={"center"}>
-          <FirstTeam color={ColorMap[startingTeam]}> Team 1 </FirstTeam>{" "}
+          <FirstTeam color={ColorMap[startingTeam]}> Team 1 </FirstTeam>
         </Col>
-      )}{" "}
+      )}
     </Row>
   );
 };
