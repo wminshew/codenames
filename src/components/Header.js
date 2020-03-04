@@ -110,7 +110,7 @@ export const Header = ({ seed, setSeed, startingTeam, score }) => {
           />
           <Button
             type={"submit"}
-            onClick={() => setSeed(newSeed)}
+            onClick={() => (setSeed(newSeed), confetti.stop())} // eslint-disable-line
             disabled={
               newSeed === seed || newSeed === "" || parseInt(newSeed) === 0
             }
