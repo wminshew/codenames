@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Code Names App",
+  "name": "A digital board for Code Names",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,14 +8,14 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "logo-small.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "201x201"
     },
     {
-      "src": "logo512.png",
+      "src": "logo-big.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "402x402"
     }
   ],
   "start_url": ".",
