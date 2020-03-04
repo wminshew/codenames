@@ -121,7 +121,7 @@ export const Header = ({ seed, setSeed, startingTeam, score }) => {
       </Col>
       {!isMobile && (
         <Col align={"center"}>
-          <Label>Remaining</Label>
+          <Label>Tiles Left</Label>
           <RemainingCount color={"var(--team-1)"}>
             {8 + (startingTeam === 0) - score[0]}
           </RemainingCount>
