@@ -63,12 +63,13 @@ const App = () => {
   const [words, setWords] = useState([]);
   const [board, updateBoard] = useState(INITIAL_BOARD);
   const [shuffledSolutions, setShuffledSolutions] = useState([]);
-  const [score, setScore] = useState(new Array(2).fill(0));
+  const [score, setScore] = useState(new Array(SOLUTIONS_COUNT.length).fill(0));
 
   useEffect( () => {
     const rng = seedRandom(seed);
 
-    // TODO: use javascript set and then convert to array?
+    setFirst(Math.round(rng())); // 0 or 1
+
     const tempWords = [];
     for (; tempWords.length < GAME_SIZE; ) {
       var word;
@@ -78,14 +79,15 @@ const App = () => {
       tempWords.push(word);
     }
     setWords(tempWords)
+  }, [seed])
 
+  useEffect(() => {
     const solutions = SOLUTIONS_COUNT.flatMap((v, i) => Array(v).fill(i));
-    setFirst(Math.round(rng())); // 0 or 1
     if (first === 1) {
       solutions[SOLUTIONS_COUNT[0] - 1] = 1;
     }
     setShuffledSolutions(seededShuffle.shuffle(solutions, seed, true));
-  }, [seed])
+  }, [first, seed])
 
   useEffect(() => {
     setScore(checkScore(shuffledSolutions, board))
