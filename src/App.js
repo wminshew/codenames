@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
   withRouter,
+  Link,
   useParams
 } from "react-router-dom";
 import "./App.css";
@@ -180,7 +181,9 @@ const App = ({ history }) => {
             }}
           >
             <Button type={"submit"} onClick={() => setGameover(false)}>
-              <span style={{ fontSize: 30 }}>Start New Game</span>
+              <Link to={`/${initSeed}`}>
+                <span style={{ fontSize: 30 }}>Start New Game</span>
+              </Link>
             </Button>
           </div>
         )}
