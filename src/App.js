@@ -90,6 +90,7 @@ const App = () => {
   const [shuffledSolutions, setShuffledSolutions] = useState([]);
   const [score, setScore] = useState(new Array(SOLUTIONS_COUNT.length).fill(0));
   const [revealed, setReveal] = useState(false);
+  const [gameOver, setGameover] = useState(false);
 
   useEffect(() => {
     const rng = seedRandom(seed);
@@ -122,6 +123,7 @@ const App = () => {
   useEffect(() => {
     if (checkWinner(first, score)) {
       confetti.start(); // eslint-disable-line
+      setGameover(true);
     }
   }, [first, score]);
 
@@ -158,7 +160,7 @@ const App = () => {
             />
           );
         })}
-        {isMobile && !revealed && (
+        {isMobile && !revealed && !gameOver && (
           <div
             style={{
               position: "absolute",
@@ -169,6 +171,20 @@ const App = () => {
           >
             <Button type={"submit"} onClick={() => setReveal(true)}>
               Reveal Board
+            </Button>
+          </div>
+        )}
+        {gameOver && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: 16,
+              textAlign: "center",
+              width: "100%"
+            }}
+          >
+            <Button type={"submit"} onClick={() => setGameover(false)}>
+              <span style={{ fontSize: 30 }}>Start New Game</span>
             </Button>
           </div>
         )}
