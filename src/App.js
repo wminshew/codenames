@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import {
+  withRouter,
+  useParams
+} from "react-router-dom";
 import "./App.css";
 import styled from "styled-components";
 
@@ -41,14 +45,9 @@ const SOLUTIONS_COLORS = [
   "var(--neutral)",
   "var(--death)"
 ];
+const CONFETTI_TIMER = 4000;
 
-const initSeed =
-  localStorage.getItem("seed") ||
-  Math.floor(1000 + Math.random() * 9000).toString();
-
-if (localStorage.getItem("seed")) {
-  localStorage.removeItem("seed");
-}
+const initSeed = Math.floor(1000 + Math.random() * 9000).toString();
 
 const checkWinner = (first, score) => {
   return (
@@ -71,19 +70,15 @@ const addCardToScore = (key, board, updateBoard) => () => {
   updateBoard(newBoard);
 };
 
-const setSeedAndStore = (setUpdating, setSeed, updateBoard) => newSeed => {
-  setUpdating(true);
-  localStorage.setItem("seed", newSeed);
-  setSeed(newSeed);
-  updateBoard(INITIAL_BOARD);
-  setTimeout(() => {
-    setUpdating(false);
-  }, 100);
-};
+const App = ({ history }) => {
+  const params = useParams();
+  const seed = params["seed"]
+  if(!seed) {
+    history.replace({
+      pathname: `/${initSeed}`
+    });
+  }
 
-const App = () => {
-  const [seed, setSeed] = useState(initSeed);
-  const [updating, setUpdating] = useState(false);
   const [first, setFirst] = useState(0);
   const [words, setWords] = useState([]);
   const [board, updateBoard] = useState(INITIAL_BOARD);
@@ -92,8 +87,8 @@ const App = () => {
   const [revealed, setReveal] = useState(false);
   const [gameOver, setGameover] = useState(false);
 
-  useEffect(() => {
-    const rng = seedRandom(seed);
+  useEffect( () => {
+    const rng = seedRandom(seed + '\0');
 
     setFirst(Math.round(rng())); // 0 or 1
 
@@ -124,6 +119,9 @@ const App = () => {
     if (checkWinner(first, score)) {
       confetti.start(); // eslint-disable-line
       setGameover(true);
+      setTimeout(() => {
+        confetti.stop(); // eslint-disable-line
+      }, CONFETTI_TIMER);
     }
   }, [first, score]);
 
@@ -142,7 +140,6 @@ const App = () => {
     <div className="App">
       <Header
         seed={seed}
-        setSeed={setSeedAndStore(setUpdating, setSeed, updateBoard)}
         startingTeam={first}
         score={score}
       />
@@ -154,7 +151,6 @@ const App = () => {
               color={SOLUTIONS_COLORS[v]}
               content={words[i]}
               isMobile={isMobile}
-              updating={updating}
               isRevealed={revealed}
               addCardToScore={addCardToScore(i, board, updateBoard)}
             />
@@ -193,4 +189,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default withRouter(App);

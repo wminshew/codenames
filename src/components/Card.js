@@ -35,17 +35,10 @@ export function Card({
   color,
   content,
   isMobile,
-  updating,
   isRevealed,
   addCardToScore
 }) {
   const [reveal, setReveal] = useState(isRevealed);
-
-  useEffect(() => {
-    if (updating) {
-      setReveal(isMobile);
-    }
-  }, [isMobile, updating]);
 
   useEffect(() => {
     if (reveal) {
@@ -58,7 +51,7 @@ export function Card({
       component={Tile}
       xs={3}
       align={"center"}
-      color={(reveal || isRevealed) && !updating ? color : "#FFF"}
+      color={(reveal || isRevealed) ? color : "#FFF"}
       onClick={() => setReveal(true)}
     >
       <Clue isMobile={isMobile} revealed={reveal} color={color}>

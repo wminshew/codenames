@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import {
+  Link
+} from "react-router-dom";
 import { Row, Col } from "react-grid-system";
 import styled from "styled-components";
 import { isMobile } from "utils/isMobile";
@@ -83,7 +86,7 @@ const AccentMap = {
   "var(--death)": "var(--death-accent)"
 };
 
-export const Header = ({ seed, setSeed, startingTeam, score }) => {
+export const Header = ({ seed, startingTeam, score }) => {
   const [newSeed, setNewSeed] = useState(seed);
   const [count, setCount] = useState(0);
   const [start, setStart] = useState(false);
@@ -110,12 +113,11 @@ export const Header = ({ seed, setSeed, startingTeam, score }) => {
           />
           <Button
             type={"submit"}
-            onClick={() => (setSeed(newSeed), confetti.stop())} // eslint-disable-line
             disabled={
               newSeed === seed || newSeed === "" || parseInt(newSeed) === 0
             }
           >
-            Load
+            <Link to={`/${newSeed}`}>Load</Link>
           </Button>
         </form>
       </Col>
