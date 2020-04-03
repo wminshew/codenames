@@ -31,8 +31,15 @@ const Clue = styled.div`
     props.revealed ? AccentMap[props.color] : "var(--grey-dark-3)"};
 `;
 
-export function Card({ color, content, isMobile, updating, addCardToScore }) {
-  const [reveal, setReveal] = useState(isMobile);
+export function Card({
+  color,
+  content,
+  isMobile,
+  updating,
+  isRevealed,
+  addCardToScore
+}) {
+  const [reveal, setReveal] = useState(isRevealed);
 
   useEffect(() => {
     if (updating) {
@@ -44,14 +51,14 @@ export function Card({ color, content, isMobile, updating, addCardToScore }) {
     if (reveal) {
       addCardToScore();
     }
-  }, [reveal]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [reveal]);
 
   return (
     <Col
       component={Tile}
       xs={3}
       align={"center"}
-      color={reveal && !updating ? color : "#FFF"}
+      color={(reveal || isRevealed) && !updating ? color : "#FFF"}
       onClick={() => setReveal(true)}
     >
       <Clue isMobile={isMobile} revealed={reveal} color={color}>

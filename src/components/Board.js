@@ -34,8 +34,10 @@ function useWindowSize() {
 export function Board(props) {
   const size = useWindowSize();
   return (
-    <Row nogutter style={{ height: size.height - 69 }}>
-      {props.children}
-    </Row>
+    <>
+      <Row nogutter style={{ height: size.height - 69 }}>
+        {props.children}
+      </Row>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import styled from "styled-components";
 
 import { Header } from "./components/Header";
 import { Board } from "./components/Board";
@@ -11,6 +12,26 @@ import NoSleep from "nosleep.js";
 import seedRandom from "seedrandom";
 import seededShuffle from "seededshuffle";
 
+const Button = styled.button`
+  transition: var(--transition);
+  border: none;
+  padding: var(--em) calc(var(--em) * 2);
+  border-radius: var(--radius);
+  background-color: ${props =>
+    props.disabled ? "rgba(255,255,255,0.25)" : "var(--primary)"};
+  font-size: var(--text-large);
+  font-weight: var(--text-semi-bold);
+  color: ${props =>
+    props.disabled ? "rgba(255,255,255,0.68)" : "var(--grey-dark-2)"};
+  margin: 0 var(--em);
+  &:hover {
+    cursor: ${props => (props.disabled ? "default" : "pointer")};
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
 const GAME_SIZE = 25;
 const INITIAL_BOARD = new Array(GAME_SIZE).fill(0);
 const SOLUTIONS_COUNT = [9, 8, 7, 1];
@@ -21,15 +42,19 @@ const SOLUTIONS_COLORS = [
   "var(--death)"
 ];
 
-const initSeed = localStorage.getItem("seed") ||
-      Math.floor(1000 + Math.random() * 9000).toString();
+const initSeed =
+  localStorage.getItem("seed") ||
+  Math.floor(1000 + Math.random() * 9000).toString();
 
 if (localStorage.getItem("seed")) {
   localStorage.removeItem("seed");
 }
 
 const checkWinner = (first, score) => {
-  return score[first] === SOLUTIONS_COUNT[0] || score[1 - first] === SOLUTIONS_COUNT[1];
+  return (
+    score[first] === SOLUTIONS_COUNT[0] ||
+    score[1 - first] === SOLUTIONS_COUNT[1]
+  );
 };
 
 const checkScore = (solution, board) => {
@@ -64,8 +89,9 @@ const App = () => {
   const [board, updateBoard] = useState(INITIAL_BOARD);
   const [shuffledSolutions, setShuffledSolutions] = useState([]);
   const [score, setScore] = useState(new Array(SOLUTIONS_COUNT.length).fill(0));
+  const [revealed, setReveal] = useState(false);
 
-  useEffect( () => {
+  useEffect(() => {
     const rng = seedRandom(seed);
 
     setFirst(Math.round(rng())); // 0 or 1
@@ -78,8 +104,8 @@ const App = () => {
       } while (tempWords.includes(word));
       tempWords.push(word);
     }
-    setWords(tempWords)
-  }, [seed])
+    setWords(tempWords);
+  }, [seed]);
 
   useEffect(() => {
     const solutions = SOLUTIONS_COUNT.flatMap((v, i) => Array(v).fill(i));
@@ -87,10 +113,10 @@ const App = () => {
       solutions[SOLUTIONS_COUNT[0] - 1] = 1;
     }
     setShuffledSolutions(seededShuffle.shuffle(solutions, seed, true));
-  }, [first, seed])
+  }, [first, seed]);
 
   useEffect(() => {
-    setScore(checkScore(shuffledSolutions, board))
+    setScore(checkScore(shuffledSolutions, board));
   }, [shuffledSolutions, board]);
 
   useEffect(() => {
@@ -127,10 +153,25 @@ const App = () => {
               content={words[i]}
               isMobile={isMobile}
               updating={updating}
+              isRevealed={revealed}
               addCardToScore={addCardToScore(i, board, updateBoard)}
             />
           );
         })}
+        {isMobile && !revealed && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: 16,
+              textAlign: "center",
+              width: "100%"
+            }}
+          >
+            <Button type={"submit"} onClick={() => setReveal(true)}>
+              Reveal Board
+            </Button>
+          </div>
+        )}
       </Board>
     </div>
   );
