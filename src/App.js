@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  withRouter,
-  Link,
-  useParams
-} from "react-router-dom";
+import { withRouter, Link, useParams } from "react-router-dom";
 import "./App.css";
 import styled from "styled-components";
 
@@ -73,8 +69,8 @@ const addCardToScore = (key, board, updateBoard) => () => {
 
 const App = ({ history }) => {
   const params = useParams();
-  const seed = params["seed"]
-  if(!seed) {
+  const seed = params["seed"];
+  if (!seed) {
     history.replace({
       pathname: `/${initSeed}`
     });
@@ -88,8 +84,8 @@ const App = ({ history }) => {
   const [revealed, setReveal] = useState(false);
   const [gameOver, setGameover] = useState(false);
 
-  useEffect( () => {
-    const rng = seedRandom(seed + '\0');
+  useEffect(() => {
+    const rng = seedRandom(seed + "\0");
 
     setFirst(Math.round(rng())); // 0 or 1
 
@@ -139,11 +135,7 @@ const App = ({ history }) => {
 
   return (
     <div className="App">
-      <Header
-        seed={seed}
-        startingTeam={first}
-        score={score}
-      />
+      <Header seed={seed} startingTeam={first} score={score} />
       <Board>
         {shuffledSolutions.map((v, i) => {
           return (
@@ -180,11 +172,11 @@ const App = ({ history }) => {
               width: "100%"
             }}
           >
-            <Button type={"submit"} onClick={() => setGameover(false)}>
-              <Link to={`/${initSeed}`}>
+            <Link to={`/${initSeed}`}>
+              <Button type={"submit"} onClick={() => setGameover(false)}>
                 <span style={{ fontSize: 30 }}>Start New Game</span>
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </div>
         )}
       </Board>

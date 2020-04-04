@@ -31,13 +31,7 @@ const Clue = styled.div`
     props.revealed ? AccentMap[props.color] : "var(--grey-dark-3)"};
 `;
 
-export function Card({
-  color,
-  content,
-  isMobile,
-  isRevealed,
-  addCardToScore
-}) {
+export function Card({ color, content, isMobile, isRevealed, addCardToScore }) {
   const [reveal, setReveal] = useState(isRevealed);
 
   useEffect(() => {
@@ -51,10 +45,10 @@ export function Card({
       component={Tile}
       xs={3}
       align={"center"}
-      color={(reveal || isRevealed) ? color : "#FFF"}
+      color={reveal || isRevealed ? color : "#FFF"}
       onClick={() => setReveal(true)}
     >
-      <Clue isMobile={isMobile} revealed={reveal} color={color}>
+      <Clue isMobile={isMobile} revealed={reveal || isRevealed} color={color}>
         {content}
       </Clue>
     </Col>

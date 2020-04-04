@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Link
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Row, Col } from "react-grid-system";
 import styled from "styled-components";
 import { isMobile } from "utils/isMobile";
@@ -111,14 +109,16 @@ export const Header = ({ seed, startingTeam, score }) => {
             type={"text"}
             onChange={e => setNewSeed(e.target.value)}
           />
-          <Button
-            type={"submit"}
-            disabled={
-              newSeed === seed || newSeed === "" || parseInt(newSeed) === 0
-            }
-          >
-            <Link to={`/${newSeed}`}>Load</Link>
-          </Button>
+          <Link to={`/${newSeed}`}>
+            <Button
+              type={"submit"}
+              disabled={
+                newSeed === seed || newSeed === "" || parseInt(newSeed) === 0
+              }
+            >
+              Load
+            </Button>
+          </Link>
         </form>
       </Col>
       {!isMobile && (
