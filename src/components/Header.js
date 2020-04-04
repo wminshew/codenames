@@ -111,7 +111,8 @@ export const Header = ({ seed, startingTeam, score }) => {
           />
           <Link to={`/${newSeed}`}>
             <Button
-              type={"submit"}
+              type={"button"}
+              value="Load"
               disabled={
                 newSeed === seed || newSeed === "" || parseInt(newSeed) === 0
               }

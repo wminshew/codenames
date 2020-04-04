@@ -9,7 +9,7 @@ import { Card } from "./components/Card";
 import { WORDS } from "./words.js";
 import { isMobile } from "utils/isMobile";
 
-import NoSleep from "nosleep.js";
+// import NoSleep from "nosleep.js";
 import seedRandom from "seedrandom";
 import seededShuffle from "seededshuffle";
 
@@ -122,17 +122,17 @@ const App = ({ history }) => {
     }
   }, [first, score]);
 
-  useEffect(() => {
-    // Enable wake lock.
-    // (must be wrapped in a user input event handler e.g. a mouse or touch handler)
-    const noSleep = new NoSleep();
-    const enableNoSleep = () => {
-      document.removeEventListener("click", enableNoSleep, false);
-      noSleep.enable();
-    };
-    document.addEventListener("click", enableNoSleep, false);
-  }, []);
-
+  // useEffect(() => {
+  //   // Enable wake lock.
+  //   // (must be wrapped in a user input event handler e.g. a mouse or touch handler)
+  //   const noSleep = new NoSleep();
+  //   const enableNoSleep = () => {
+  //     document.removeEventListener("click", enableNoSleep, false);
+  //     noSleep.enable();
+  //   };
+  //   document.addEventListener("click", enableNoSleep, false);
+  // }, []);
+  //
   return (
     <div className="App">
       <Header seed={seed} startingTeam={first} score={score} />
