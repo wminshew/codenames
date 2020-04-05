@@ -3,7 +3,7 @@ import { withRouter, Link, useParams } from "react-router-dom";
 import "./App.css";
 import styled from "styled-components";
 
-import { Header } from "./components/Header";
+import  Header  from "./components/Header";
 import { Board } from "./components/Board";
 import { Card } from "./components/Card";
 import { WORDS } from "./words.js";
@@ -113,12 +113,16 @@ const App = ({ history }) => {
   }, [shuffledSolutions, board]);
 
   useEffect(() => {
+    let id;
     if (checkWinner(first, score)) {
       confetti.start(); // eslint-disable-line
       setGameover(true);
-      setTimeout(() => {
+      id = setTimeout(() => {
         confetti.stop(); // eslint-disable-line
       }, CONFETTI_TIMER);
+    }
+    return () => {
+      clearTimeout(id);
     }
   }, [first, score]);
 

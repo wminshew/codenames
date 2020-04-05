@@ -38,7 +38,7 @@ export function Card({ color, content, isMobile, isRevealed, addCardToScore }) {
     if (reveal) {
       addCardToScore();
     }
-  }, [reveal]);
+  }, [reveal]); // eslint-disable-line
 
   return (
     <Col

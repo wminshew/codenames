@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Row, Col } from "react-grid-system";
 import styled from "styled-components";
 import { isMobile } from "utils/isMobile";
@@ -84,7 +84,12 @@ const AccentMap = {
   "var(--death)": "var(--death-accent)"
 };
 
-export const Header = ({ seed, startingTeam, score }) => {
+const loadBoard = (e, history, newSeed) => {
+  e.preventDefault();
+  history.push(`/${newSeed}`);
+};
+
+const Header = ({ history, seed, startingTeam, score }) => {
   const [newSeed, setNewSeed] = useState(seed);
   const [count, setCount] = useState(0);
   const [start, setStart] = useState(false);
@@ -109,17 +114,16 @@ export const Header = ({ seed, startingTeam, score }) => {
             type={"text"}
             onChange={e => setNewSeed(e.target.value)}
           />
-          <Link to={`/${newSeed}`}>
-            <Button
-              type={"button"}
-              value="Load"
-              disabled={
-                newSeed === seed || newSeed === "" || parseInt(newSeed) === 0
-              }
-            >
-              Load
-            </Button>
-          </Link>
+          <Button
+            type={"submit"}
+            value="Load"
+            disabled={
+              newSeed === seed || newSeed === "" || parseInt(newSeed) === 0
+            }
+            onClick={e => loadBoard(e, history, newSeed)}
+          >
+            Load
+          </Button>
         </form>
       </Col>
       {!isMobile && (
@@ -149,3 +153,5 @@ export const Header = ({ seed, startingTeam, score }) => {
     </Row>
   );
 };
+
+export default withRouter(Header);
