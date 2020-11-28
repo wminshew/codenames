@@ -55,7 +55,7 @@ form {
   --team-2: #5398ff;
   --team-2-accent: rgba(0, 0, 0, 0.48);
   /* --neutral: #dee3e3; */
-  --neutral: var(--grey-dark-1);
+  --neutral: rgba(215, 189, 125, 1);
   --neutral-accent: rgba(0, 0, 0, 0.48);
   --death: #222;
   --death-accent: #ffff00;
@@ -65,7 +65,7 @@ form {
   --text-tiny: calc(var(--em) * 0.7);
   --text-small: calc(var(--text) * 0.8);
   --text-large: calc(var(--text) * 1);
-  --text-big: calc(var(--text) * 1.2);
+  --text-big: calc(var(--text) * 2.2);
   --text-light: 300;
   --text-regular: 400;
   --text-medium: 500;

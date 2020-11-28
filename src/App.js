@@ -3,7 +3,7 @@ import { withRouter, Link, useParams } from "react-router-dom";
 import "./App.css";
 import styled from "styled-components";
 
-import  Header  from "./components/Header";
+import Header from "./components/Header";
 import { Board } from "./components/Board";
 import { Card } from "./components/Card";
 import { WORDS } from "./words.js";
@@ -123,7 +123,7 @@ const App = ({ history }) => {
     }
     return () => {
       clearTimeout(id);
-    }
+    };
   }, [first, score]);
 
   // useEffect(() => {
