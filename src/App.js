@@ -42,16 +42,8 @@ const SOLUTIONS_COLORS = [
   "var(--neutral)",
   "var(--death)"
 ];
-const CONFETTI_TIMER = 4000;
 
 const initSeed = Math.floor(1000 + Math.random() * 9000).toString();
-
-const checkWinner = (first, score) => {
-  return (
-    score[first] === SOLUTIONS_COUNT[0] ||
-    score[1 - first] === SOLUTIONS_COUNT[1]
-  );
-};
 
 const checkScore = (solution, board) => {
   const score = [0, 0, 0, 0];
