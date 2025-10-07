@@ -112,20 +112,6 @@ const App = ({ history }) => {
     setScore(checkScore(shuffledSolutions, board));
   }, [shuffledSolutions, board]);
 
-  useEffect(() => {
-    let id;
-    if (checkWinner(first, score)) {
-      confetti.start(); // eslint-disable-line
-      setGameover(true);
-      id = setTimeout(() => {
-        confetti.stop(); // eslint-disable-line
-      }, CONFETTI_TIMER);
-    }
-    return () => {
-      clearTimeout(id);
-    };
-  }, [first, score]);
-
   // useEffect(() => {
   //   // Enable wake lock.
   //   // (must be wrapped in a user input event handler e.g. a mouse or touch handler)
